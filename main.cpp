@@ -3,8 +3,7 @@
     Auteur          :   Martin Derleth
     Date            :   October 7, 2024
     Nom du fichier  :   main.cpp
-    Version         :   1.0.0
-    À améliorer     :   Arrêter la recherche pour un nombre lorsqu'on a dépassé la racine carrée
+    Version         :   1.1.0
 */
 
 #include <cmath>
@@ -38,23 +37,32 @@ int main() {
         do {
             for (int colonne = 0; colonne < 5;) {
 
-                for (int calcul = 2; calcul <= increment_premier; ++calcul) {
-                    //Si nombre 2, alors cas spécial
-                    if (increment_premier == 2) {
-                        cout << '\t' << "2" << " ";
-                        ++colonne;
+                //Si nombre 2, alors cas spécial
+                if (increment_premier == 2) {
+                    cout << '\t' << "2" << " ";
+                    ++colonne;
+                }
+                //Sinon on continue comme normal
+                else {
+                    bool estPremier = true;
+
+                    for (int calcul = 2; calcul <= sqrt(increment_premier); ++calcul) {
+                        if (increment_premier % calcul == 0) {
+                            estPremier = false;
+                        }
                     }
-                    else if (increment_premier == (calcul + 1)) {
+
+                    if (estPremier) {
                         cout << '\t' << increment_premier << " ";
                         ++colonne;
                     }
-                    else if (increment_premier % calcul == 0) break;
                 }
 
                 ++increment_premier;
 
-                //Sortir de la boucle, au cas où aurait fini avant la fin de la ligne
+                //Sortir de la boucle, au cas où aurait fini avant les 5 éléments de la ligne
                 if (increment_premier > choix_limite) break;
+
             }
                 cout << endl;
 
